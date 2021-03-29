@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { getLoginState } from "../../store/actions/exporterActions";
+import { SERVER } from "../../config";
 
 const Login = ({ history }) => {
   const clientID = "e0766f48a0ed436d36d4";
@@ -27,14 +28,13 @@ const Login = ({ history }) => {
       .then((res) => {
         console.log("before setToken >>>", res.data["access_token"]);
         setAccessToken(res.data["access_token"]);
-        console.log("after setToken ^^");
       })
       .catch((err) => console.log(err));
   };
   const setAccessToken = (token) => {
     axios({
       method: "POST",
-      url: "http://10.153.5.102:8000/user/login",
+      url: `${SERVER}/user/login`,
       data: {
         token: token,
       },
